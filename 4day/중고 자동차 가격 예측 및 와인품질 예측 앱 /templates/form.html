@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="/wine-test" method="post">
+    {% for i in range(1,12) %}
+    x{{i}}<input type="text" name='x{{i}}'><br/>
+    {% endfor %}
+    <input type="submit" value="확인">
+</form>
+</body>
+</html>

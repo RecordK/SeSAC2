@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="/car-test" method="post">
+    {% for i,j in enumerate(feature) %}
+        {% if i in selfeature %}
+        {{j}} : <select name='x{{i}}'>
+                {% for l in li[i]  %}
+                    <option value="{{l}}">{{l}}</option><br/>
+                {% endfor %}
+            </select><br/>
+        {% else %}
+            {{j}} : <input type="text" name='x{{i}}'><br/>
+        {% endif %}
+    {% endfor %}
+
+    <input type="submit" value="확인">
+</form>
+</body>
+</html>
