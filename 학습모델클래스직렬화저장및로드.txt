@@ -1,0 +1,29 @@
+
+해결1>모델 클래스 정의를 app.py에 한다
+=================================
+해결2> 직렬화
+<https://pytorch.org/docs/master/notes/serialization.html>
+>>> class MyModule(torch.nn.Module):
+      def __init__(self):
+        super(MyModule, self).__init__()
+        self.l0 = torch.nn.Linear(4, 2)
+        self.l1 = torch.nn.Linear(2, 1)
+
+      def forward(self, input):
+        out0 = self.l0(input)
+        out0_relu = torch.nn.functional.relu(out0)
+        return self.l1(out0_relu)
+
+>>> m = MyModule()
+>>> m.state_dict()
+OrderedDict([('l0.weight', tensor([[ 0.1400, 0.4563, -0.0271, -0.4406],
+                                   [-0.3289, 0.2827, 0.4588, 0.2031]])),
+             ('l0.bias', tensor([ 0.0300, -0.1316])),
+             ('l1.weight', tensor([[0.6533, 0.3413]])),
+             ('l1.bias', tensor([-0.1112]))])
+
+>>> torch.save(m.state_dict(), 'mymodule.pt')
+>>> m_state_dict = torch.load('mymodule.pt')
+>>> new_m = MyModule()
+>>> new_m.load_state_dict(m_state_dict)
+<All keys matched successfully>
